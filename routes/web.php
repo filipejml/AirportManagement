@@ -11,3 +11,6 @@ Route::get('/cadastro-voos', [FlightController::class, 'create'])->name('flights
 Route::get('/lista-voos', [FlightController::class, 'index'])->name('flights.index');
 Route::get('/companhias-aereas', [CompanyController::class, 'index'])->name('companies.index');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::resource('flights', FlightController::class);
+Route::resource('companies', CompanyController::class);
