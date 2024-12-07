@@ -6,60 +6,17 @@ use Illuminate\Http\Request;
 
 class FlightController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Método para exibir a tela de boas-vindas
+    public function welcome()
+    {
+        return view('welcome'); // Carrega a view 'welcome.blade.php'
+    }
+
+    // Método para listar os voos
     public function index()
     {
-        $flights = Flight::all();
-        return view('flights.index', compact('flights'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // Aqui você pode pegar os dados dos voos e passá-los para a view
+        $flights = \App\Models\Flight::all(); // Exemplo de como pegar todos os voos
+        return view('flights.index', compact('flights')); // Renderiza a lista de voos
     }
 }
