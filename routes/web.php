@@ -1,15 +1,23 @@
 <?php
 
-use App\Http\Controllers\FlightController;
-use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VooController;
+use App\Models\ModeloAeronave;
 
-// Página inicial
-Route::get('/', [FlightController::class, 'welcome']); // Página de boas-vindas
-Route::get('/flights', [FlightController::class, 'index']); // Lista de voos
 
-// Rotas de voos (CRUD)
-Route::resource('flights', FlightController::class);
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
 
-// Rotas de companhias aéreas (CRUD)
-Route::resource('companies', CompanyController::class);
+Route::view('/cadastro-voos', 'cadastro-voos')->name('cadastro.voos');
+Route::view('/lista-voos', 'lista-voos')->name('lista.voos');
+Route::view('/companhias-aereas', 'companhias-aereas')->name('companhias.aereas');
+Route::view('/dashboard', 'dashboard')->name('dashboard');
+
+
+Route::get('/cadastro-voos', [VooController::class, 'create'])->name('cadastro.voos');
+Route::post('/cadastro-voos', [VooController::class, 'store'])->name('voos.store');
+
+Route::get('/api/modelos-aeronaves/{id}', function ($id) {
+    return ModeloAeronave::findOrFail($id);
+});

@@ -1,7 +1,8 @@
-<!-- resources/views/welcome.blade.php -->
-@extends('layouts.app') <!-- Extende o layout principal -->
+@extends('layout')
 
-@section('content') <!-- Define o conteúdo da página -->
+@section('content')
+<div class="text-center">
     <h1>Bem-vindo ao Airport Manager</h1>
-    <p>Bem-vindo à aplicação de gerenciamento de voos. Aqui você pode registrar e visualizar informações sobre os voos das companhias aéreas.</p>
+    <p>Gerencie seus voos e companhias aéreas com facilidade.</p>
+</div>
 @endsection
