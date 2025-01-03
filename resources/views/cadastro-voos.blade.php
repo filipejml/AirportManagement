@@ -22,55 +22,39 @@
 
         <div class="mb-3">
             <label for="modelo_aviao" class="form-label">Modelo do Avião</label>
-            <input type="text" name="modelo_aviao" id="modelo_aviao" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="tipo_voo" class="form-label">Tipo de Voo</label>
-            <input type="text" name="tipo_voo" id="tipo_voo" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="tipo_aeronave" class="form-label">Tipo de Aeronave</label>
-            <input type="text" name="tipo_aeronave" id="tipo_aeronave" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="qtd_voos" class="form-label">Quantidade de Voos</label>
-            <input type="number" name="qtd_voos" id="qtd_voos" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="horario_voo" class="form-label">Horário do Voo</label>
-            <input type="time" name="horario_voo" id="horario_voo" class="form-control" required>
+            <select name="modelo_aviao" id="modelo_aviao" class="form-control" required>
+                <option value="">Selecione um modelo</option>
+                @foreach ($modelosAeronaves as $modelo)
+                    <option value="{{ $modelo->id }}">{{ $modelo->modelo }}</option>
+                @endforeach
+            </select>
         </div>
 
         <div class="mb-3">
             <label for="qtd_passageiros" class="form-label">Quantidade de Passageiros</label>
-            <input type="number" name="qtd_passageiros" id="qtd_passageiros" class="form-control" required>
+            <input type="number" name="qtd_passageiros" id="qtd_passageiros" class="form-control" readonly>
         </div>
 
-        <div class="mb-3">
-            <label for="nota_obj" class="form-label">Nota de Objetividade</label>
-            <input type="number" name="nota_obj" id="nota_obj" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="nota_pontualidade" class="form-label">Nota de Pontualidade</label>
-            <input type="number" name="nota_pontualidade" id="nota_pontualidade" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="nota_servicos" class="form-label">Nota de Serviços</label>
-            <input type="number" name="nota_servicos" id="nota_servicos" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="nota_patio" class="form-label">Nota do Pátio</label>
-            <input type="number" name="nota_patio" id="nota_patio" class="form-control" required>
-        </div>
+        <!-- Outros campos aqui -->
 
         <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
 </div>
+
+<script>
+    document.getElementById('modelo_aviao').addEventListener('change', function () {
+        const modeloId = this.value;
+
+        if (modeloId) {
+            fetch(`/api/modelos-aeronaves/${modeloId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('qtd_passageiros').value = data.capacidade_passageiros || 0;
+                })
+                .catch(error => console.error('Erro ao buscar dados do modelo:', error));
+        } else {
+            document.getElementById('qtd_passageiros').value = 0;
+        }
+    });
+</script>
 @endsection

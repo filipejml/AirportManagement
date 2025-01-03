@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VooController;
+use App\Models\ModeloAeronave;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -11,7 +14,10 @@ Route::view('/lista-voos', 'lista-voos')->name('lista.voos');
 Route::view('/companhias-aereas', 'companhias-aereas')->name('companhias.aereas');
 Route::view('/dashboard', 'dashboard')->name('dashboard');
 
-use App\Http\Controllers\VooController;
 
 Route::get('/cadastro-voos', [VooController::class, 'create'])->name('cadastro.voos');
 Route::post('/cadastro-voos', [VooController::class, 'store'])->name('voos.store');
+
+Route::get('/api/modelos-aeronaves/{id}', function ($id) {
+    return ModeloAeronave::findOrFail($id);
+});
